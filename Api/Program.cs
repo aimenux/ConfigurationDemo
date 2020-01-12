@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
-using Api.Configuration;
-using Api.Services;
+using Lib.Configuration;
+using Lib.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

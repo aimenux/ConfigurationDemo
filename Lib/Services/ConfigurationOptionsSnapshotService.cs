@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Api.Configuration;
+using Lib.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace Api.Services
+namespace Lib.Services
 {
     public class ConfigurationOptionsSnapshotService : IConfigurationService
     {
@@ -15,12 +15,15 @@ namespace Api.Services
 
         public IDictionary<string, object> GetSettings()
         {
-            var features = _optionsSnapshot.Value.Features;
+            var settings = _optionsSnapshot.Value;
+            var serviceType = settings.ServiceType;
+            var features = settings.Features;
 
             return new Dictionary<string, object>
             {
+                [nameof(ServiceType)] = serviceType,
                 [nameof(Features.One)] = features.One,
-                [nameof(Features.Two)] = features.Two
+                [nameof(Features.Two)] = features.Two,
             };
         }
     }

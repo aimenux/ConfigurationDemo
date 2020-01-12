@@ -1,4 +1,4 @@
-﻿namespace Api.Configuration
+﻿namespace Lib.Configuration
 {
     public class Features
     {

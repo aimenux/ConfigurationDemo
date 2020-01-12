@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Api.Configuration;
-using Api.Services;
+using Lib.Configuration;
+using Lib.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
