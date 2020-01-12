@@ -24,7 +24,7 @@ namespace App
                     loggingBuilder.Services.AddSingleton(serviceProvider =>
                     {
                         var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-                        return loggerFactory.CreateLogger("AzureServiceBusDemo");
+                        return loggerFactory.CreateLogger("ConfigurationAppDemo");
                     });
                     loggingBuilder.AddConsole();
                 })
