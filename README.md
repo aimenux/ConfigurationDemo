@@ -2,7 +2,7 @@
 
 [Options pattern in net core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options)
 
-In this demo, we are using `IOptions`, `IOptionsMonitor` and `IOptionsSnapshot` in 2 projects (web api & console app).
+In this demo, i'm using `IOptions`, `IOptionsMonitor` and `IOptionsSnapshot` in 2 projects (web api & console app).
 
 Solution structure :
 - Api : web api net core 3.1
