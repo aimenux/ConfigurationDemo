@@ -4,36 +4,43 @@ using System.Threading;
 using System.Threading.Tasks;
 using Lib.Services;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace App
+namespace App;
+
+public class ConfigurationHostedService : BackgroundService
 {
-    public class ConfigurationHostedService : IHostedService
+    private readonly IEnumerable<IConfigurationService> _configurationServices;
+    private readonly ILogger _logger;
+
+    public ConfigurationHostedService(IEnumerable<IConfigurationService> configurationServices, ILogger logger)
     {
-        private readonly IEnumerable<IConfigurationService> _configurationServices;
+        _configurationServices = configurationServices ?? throw new ArgumentNullException(nameof(configurationServices));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
 
-        public ConfigurationHostedService(IEnumerable<IConfigurationService> configurationServices)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        using var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
+        
+        try
         {
-            _configurationServices = configurationServices;
-        }
-
-        public Task StartAsync(CancellationToken cancellationToken)
-        {
-            foreach (var configurationService in _configurationServices)
+            while (await timer.WaitForNextTickAsync(stoppingToken))
             {
-                Console.WriteLine($"\nSettings found with '{configurationService.GetType().Name}'");
-                var settings = configurationService.GetSettings();
-                foreach (var (key, value) in settings)
+                foreach (var configurationService in _configurationServices)
                 {
-                    Console.WriteLine($"-> {key} = {value}");
+                    Console.WriteLine($"\nSettings found with '{configurationService.GetType().Name}'");
+                    var settings = configurationService.GetSettings();
+                    foreach (var (key, value) in settings)
+                    {
+                        Console.WriteLine($"-> {key} = {value}");
+                    }
                 }
             }
-
-            return Task.CompletedTask;
         }
-
-        public Task StopAsync(CancellationToken cancellationToken)
+        catch(OperationCanceledException ex)
         {
-            return Task.CompletedTask;
+            _logger.LogError(ex, "Configuration hosted service is stopping.");
         }
     }
 }

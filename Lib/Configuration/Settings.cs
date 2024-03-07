@@ -1,8 +1,7 @@
-﻿namespace Lib.Configuration
+﻿namespace Lib.Configuration;
+
+public sealed record Settings
 {
-    public class Settings
-    {
-        public Features Features { get; set; }
-        public ServiceType ServiceType { get; set; }
-    }
+    public Features Features { get; init; }
+    public ServiceType ServiceType { get; init; }
 }

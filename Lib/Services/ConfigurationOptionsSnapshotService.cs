@@ -1,30 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lib.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace Lib.Services
+namespace Lib.Services;
+
+public class ConfigurationOptionsSnapshotService : IConfigurationService
 {
-    public class ConfigurationOptionsSnapshotService : IConfigurationService
+    private readonly IOptionsSnapshot<Settings> _optionsSnapshot;
+
+    public ConfigurationOptionsSnapshotService(IOptionsSnapshot<Settings> optionsSnapshot)
     {
-        private readonly IOptionsSnapshot<Settings> _optionsSnapshot;
+        _optionsSnapshot = optionsSnapshot ?? throw new ArgumentNullException(nameof(optionsSnapshot));
+    }
 
-        public ConfigurationOptionsSnapshotService(IOptionsSnapshot<Settings> optionsSnapshot)
+    public IDictionary<string, object> GetSettings()
+    {
+        var settings = _optionsSnapshot.Value;
+        var features = settings.Features;
+
+        return new Dictionary<string, object>
         {
-            _optionsSnapshot = optionsSnapshot;
-        }
-
-        public IDictionary<string, object> GetSettings()
-        {
-            var settings = _optionsSnapshot.Value;
-            var serviceType = settings.ServiceType;
-            var features = settings.Features;
-
-            return new Dictionary<string, object>
-            {
-                [nameof(ServiceType)] = serviceType,
-                [nameof(Features.One)] = features.One,
-                [nameof(Features.Two)] = features.Two,
-            };
-        }
+            [nameof(ServiceType)] = nameof(ConfigurationOptionsSnapshotService),
+            [nameof(Features.One)] = features.One,
+            [nameof(Features.Two)] = features.Two,
+        };
     }
 }

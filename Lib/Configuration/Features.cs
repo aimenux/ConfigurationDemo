@@ -1,8 +1,7 @@
-﻿namespace Lib.Configuration
+﻿namespace Lib.Configuration;
+
+public sealed record Features
 {
-    public class Features
-    {
-        public string One { get; set; }
-        public string Two { get; set; }
-    }
+    public string One { get; init; }
+    public string Two { get; init; }
 }

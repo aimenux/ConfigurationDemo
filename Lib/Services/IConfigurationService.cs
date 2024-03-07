@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Lib.Services
+namespace Lib.Services;
+
+public interface IConfigurationService
 {
-    public interface IConfigurationService
-    {
-        IDictionary<string, object> GetSettings();
-    }
+    IDictionary<string, object> GetSettings();
 }

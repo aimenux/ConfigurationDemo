@@ -1,10 +1,8 @@
-﻿namespace Lib.Configuration
+﻿namespace Lib.Configuration;
+
+public enum ServiceType
 {
-    public enum ServiceType
-    {
-        None,
-        ConfigurationOptionsService,
-        ConfigurationOptionsMonitorService,
-        ConfigurationOptionsSnapshotService
-    }
+    ConfigurationOptionsService = 1,
+    ConfigurationOptionsMonitorService,
+    ConfigurationOptionsSnapshotService
 }
