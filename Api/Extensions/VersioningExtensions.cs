@@ -20,6 +20,7 @@ public static class VersioningExtensions
             .AddApiExplorer(options =>
             {
                 options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.DefaultApiVersion = defaultVersion;
                 options.ApiVersionParameterSource = GetApiVersionReader();

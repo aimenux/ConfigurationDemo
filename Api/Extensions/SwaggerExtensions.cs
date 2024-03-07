@@ -9,8 +9,8 @@ public static class SwaggerExtensions
 {
     public static void AddSwaggerDoc(this WebApplicationBuilder builder)
     {
-        builder.Services.AddSwaggerGen();
         builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
+        builder.Services.AddSwaggerGen();
     }
     
     public static void UseSwaggerDoc(this WebApplication app)
@@ -50,7 +50,7 @@ public static class SwaggerExtensions
         {
             var info = new OpenApiInfo
             {
-                Title = "",
+                Title = "ConfigurationDemo",
                 Version = description.ApiVersion.ToString()
             };
 
